@@ -14,7 +14,7 @@ constexpr int Joystick_Controller_Max_Num_Buttons = 256;    // Maximum number of
 constexpr int Joystick_Controller_Max_Num_Axes = 256;       // Maximum number of axes.
 
 
-namespace joystic
+namespace joystick
 {
     /**
      * @brief Class to work with joystick.
@@ -89,7 +89,7 @@ namespace joystic
          * @brief Get the Hut Value.
          * @return hut value ot -1 if joystick not open.
          */
-        int GetHutValue();
+        int GetHatValue();
 
         /**
          * @brief Get the Axis Value object
@@ -103,7 +103,7 @@ namespace joystic
         SDL_Joystick* joystick;
         std::atomic<bool> buttons[Joystick_Controller_Max_Num_Buttons];
         std::atomic<int> axes[Joystick_Controller_Max_Num_Axes];
-        std::atomic<int> hut_value;
+        std::atomic<int> hat_value;
         std::thread joystic_thread;
         std::atomic<bool> stop_threads_flag;
 

@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.13)
 ## PROJECT
 ## name and version
 ###############################################################################
-project(JoystickController_lib LANGUAGES CXX)
+project(JoystickControllerTests LANGUAGES CXX)
 
 
 
@@ -14,8 +14,8 @@ project(JoystickController_lib LANGUAGES CXX)
 ## CONFIGURATION
 ## project configuration
 ###############################################################################
-SET(${PARENT}_JOYSTICK_CONTROLLER               ON CACHE BOOL  "" FORCE)
-SET(${PARENT}_JOYSTICK_CONTROLLER_TESTS         ON CACHE BOOL  "" FORCE)
+#Tests
+SET(${PARENT}_JOYSTICK_TEST_APPLICATION    ON CACHE BOOL "" FORCE)
 
 
 
@@ -23,13 +23,6 @@ SET(${PARENT}_JOYSTICK_CONTROLLER_TESTS         ON CACHE BOOL  "" FORCE)
 ## INCLUDING SUBDIRECTORIES
 ## Adding subdirectories according to the configuration
 ###############################################################################
-# 3rdparty
-add_subdirectory(3rdparty)
-
-if (${PARENT}_JOYSTICK_CONTROLLER)
-    add_subdirectory(JoystickController)
-endif()
-
-if (${PARENT}_JOYSTICK_CONTROLLER_TESTS)
-    add_subdirectory(JoystickControllerTests)
+if (${PARENT}_JOYSTICK_TEST_APPLICATION)
+    add_subdirectory(JoystickTestApplication)
 endif()

@@ -1,7 +1,7 @@
 #include "JoystickController.h"
 
 
-joystic::JoystickController::JoystickController() :
+joystick::JoystickController::JoystickController() :
     joystick(nullptr)
 {
     stop_threads_flag.store(true);
@@ -15,11 +15,11 @@ joystic::JoystickController::JoystickController() :
         axes[i].store(false);
 
     // Init hut value.
-    hut_value.store(-1);
+    hat_value.store(-1);
 }
 
 
-joystic::JoystickController::~JoystickController()
+joystick::JoystickController::~JoystickController()
 {
     // Stop thread.
     stop_threads_flag.store(true);
@@ -32,7 +32,7 @@ joystic::JoystickController::~JoystickController()
 }
 
 
-int joystic::JoystickController::Init()
+int joystick::JoystickController::Init()
 {
     // Init SDL2 library.
     SDL_Init(SDL_INIT_JOYSTICK);
@@ -42,7 +42,7 @@ int joystic::JoystickController::Init()
 }
 
 
-bool joystic::JoystickController::Open(int joystick_ID)
+bool joystick::JoystickController::Open(int joystick_ID)
 {
     // Stop thread.
     stop_threads_flag.store(true);
@@ -64,13 +64,13 @@ bool joystic::JoystickController::Open(int joystick_ID)
 
     // Launch event read thread.
     stop_threads_flag.store(false);
-    joystic_thread = std::thread(&joystic::JoystickController::Joystick_Events_Thread_Function, this);
+    joystic_thread = std::thread(&joystick::JoystickController::Joystick_Events_Thread_Function, this);
 
     return true;
 }
 
 
-void joystic::JoystickController::Close()
+void joystick::JoystickController::Close()
 {
     // Stop thread.
     stop_threads_flag.store(true);
@@ -84,7 +84,7 @@ void joystic::JoystickController::Close()
 }
 
 
-std::string joystic::JoystickController::GetName()
+std::string joystick::JoystickController::GetName()
 {
     // Check if joystic not open.
     if (joystick == nullptr)
@@ -95,7 +95,7 @@ std::string joystic::JoystickController::GetName()
 }
 
 
-int joystic::JoystickController::GetNumButtons()
+int joystick::JoystickController::GetNumButtons()
 {
     // Check if joystic not open.
     if (joystick == nullptr)
@@ -106,7 +106,7 @@ int joystic::JoystickController::GetNumButtons()
 }
 
 
-int joystic::JoystickController::GetNumAxes()
+int joystick::JoystickController::GetNumAxes()
 {
     // Check if joystic not open.
     if (joystick == nullptr)
@@ -117,7 +117,7 @@ int joystic::JoystickController::GetNumAxes()
 }
 
 
-int joystic::JoystickController::GetNumHats()
+int joystick::JoystickController::GetNumHats()
 {
     // Check if joystic not open.
     if (joystick == nullptr)
@@ -128,7 +128,7 @@ int joystic::JoystickController::GetNumHats()
 }
 
 
-bool joystic::JoystickController::GetButtonState(int button_ID, bool reset_button)
+bool joystick::JoystickController::GetButtonState(int button_ID, bool reset_button)
 {
     // Check buttob ID.
     if (button_ID >= Joystick_Controller_Max_Num_Buttons || button_ID < 0)
@@ -143,14 +143,14 @@ bool joystic::JoystickController::GetButtonState(int button_ID, bool reset_butto
 }
 
 
-int joystic::JoystickController::GetHutValue()
+int joystick::JoystickController::GetHatValue()
 {
     // Return hut value.
-    return hut_value.load();
+    return hat_value.load();
 }
 
 
-int joystic::JoystickController::GetAxisValue(int axis_ID)
+int joystick::JoystickController::GetAxisValue(int axis_ID)
 {
     // Check axis ID.
     if (axis_ID >= Joystick_Controller_Max_Num_Axes || axis_ID < 0)
@@ -161,7 +161,7 @@ int joystic::JoystickController::GetAxisValue(int axis_ID)
 }
 
 
-void joystic::JoystickController::Joystick_Events_Thread_Function()
+void joystick::JoystickController::Joystick_Events_Thread_Function()
 {
     const uint32_t wait_time = 1; // Wait time 1 ms.
 
@@ -185,7 +185,7 @@ void joystic::JoystickController::Joystick_Events_Thread_Function()
                     break;
 
                 case SDL_JOYHATMOTION:
-                    hut_value.store((int)evt.jhat.value);
+                    hat_value.store((int)evt.jhat.value);
                     break;
             }
         }
