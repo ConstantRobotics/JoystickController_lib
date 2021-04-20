@@ -2,21 +2,22 @@
 #include <string>
 #include <atomic>
 #include <thread>
+#include <SDL.h>
+
 #if defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
 #undef main // Necessary for SDL libs.
 #endif
 
 
 // Global constants.
-constexpr int Joystick_Controller_Max_Num_Buttons = 100;    // Maximum number of buttons.
-constexpr int Joystick_Controller_Max_Num_Axes = 100;       // Maximum number of axes.
+constexpr int Joystick_Controller_Max_Num_Buttons = 256;    // Maximum number of buttons.
+constexpr int Joystick_Controller_Max_Num_Axes = 256;       // Maximum number of axes.
 
 
 namespace joystic
 {
     /**
      * @brief Class to work with joystick.
-     * 
      */
     class JoystickController
     {
@@ -78,10 +79,11 @@ namespace joystic
         /**
          * @brief Get button state (pushed ot not pushed).
          * @param button_ID ID of button.
+         * @param reset_button Flag to reset button state if you want.
          * @return true if the button pushed.
          * @return false if the button released.
          */
-        bool GetButtonState(int button_ID);
+        bool GetButtonState(int button_ID, bool reset_button = false);
 
         /**
          * @brief Get the Hut Value.
@@ -98,11 +100,12 @@ namespace joystic
 
     private:
 
-        std::atomic<bool> open_flag;
-        int joystick_ID;
+        SDL_Joystick* joystick;
         std::atomic<bool> buttons[Joystick_Controller_Max_Num_Buttons];
         std::atomic<int> axes[Joystick_Controller_Max_Num_Axes];
         std::atomic<int> hut_value;
+        std::thread joystic_thread;
+        std::atomic<bool> stop_threads_flag;
 
         void Joystick_Events_Thread_Function();
     };

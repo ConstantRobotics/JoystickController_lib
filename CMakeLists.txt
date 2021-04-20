@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.13)
 ## PROJECT
 ## name and version
 ###############################################################################
-project(UniversalDemoApplications LANGUAGES CXX)
+project(JoystickController_lib LANGUAGES CXX)
 
 
 

@@ -52,5 +52,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 find_package (Threads)
 target_link_libraries (${PROJECT_NAME} ${CMAKE_THREAD_LIBS_INIT})
 
+#include SDL2
+target_link_libraries (${PROJECT_NAME} SDL2)
+
 
 
