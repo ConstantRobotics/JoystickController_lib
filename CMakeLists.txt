@@ -15,7 +15,7 @@ project(JoystickController_lib LANGUAGES CXX)
 ## project configuration
 ###############################################################################
 SET(${PARENT}_JOYSTICK_CONTROLLER               ON CACHE BOOL  "" FORCE)
-SET(${PARENT}_JOYSTICK_CONTROLLER_TESTS         ON CACHE BOOL  "" FORCE)
+SET(${PARENT}_JOYSTICK_CONTROLLER_TESTS         OFF CACHE BOOL  "" FORCE)
 
 
 
